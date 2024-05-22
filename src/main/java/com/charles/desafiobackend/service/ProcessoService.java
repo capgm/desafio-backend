@@ -23,7 +23,7 @@ public class ProcessoService {
 	@Autowired
 	private IProcessoRepository processoRepository;
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public Page<Processo> getAllProcessos(Pageable pageable) {
 		return processoRepository.findAll(pageable);
 	}
@@ -43,7 +43,7 @@ public class ProcessoService {
 
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public ProcessoViewDto findById(Long id) {
 		return ProcessoMapper.toViewDto(processoRepository.findById(id).get());
 	}

@@ -1,16 +1,22 @@
 package com.charles.desafiobackend.web.dto.processo;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 public class ProcessoCreateDto {
 
-    @NotNull
+    @NotBlank
+    @Size(min=20, max=20, message="O npu deve ter 20 caracteres")
+    @Pattern(regexp="\\d+", message="Apenas números são permitidos")
     private String npu;
 
-    @NotNull
+    @NotBlank
     private String municipio;
 
-    @NotNull
+    @NotBlank
+    @Size(min=2, max=2, message="O estado deve ter 2 caracteres")
     private String uf;
 
     @NotNull
@@ -48,4 +54,20 @@ public class ProcessoCreateDto {
     public void setDocumentoPdf(byte[] documentoPdf) {
         this.documentoPdf = documentoPdf;
     }
+
+	public ProcessoCreateDto(
+			@NotBlank @Size(min = 20, max = 20, message = "O npu deve ter 20 caracteres") @Pattern(regexp = "\\d+", message = "Apenas números são permitidos") String npu,
+			@NotBlank String municipio,
+			@NotBlank @Size(min = 2, max = 2, message = "O estado deve ter 2 caracteres") String uf,
+			@NotNull byte[] documentoPdf) {
+		super();
+		this.npu = npu;
+		this.municipio = municipio;
+		this.uf = uf;
+		this.documentoPdf = documentoPdf;
+	}
+    
+	public ProcessoCreateDto() {
+		super();
+	}
 }
